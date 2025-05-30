@@ -16,3 +16,4 @@ C:\Users\Utilisateur\source\repos\Lethal_Battle\Lethal_Battle\obj\Debug\netstand
 C:\Users\Utilisateur\source\repos\Lethal_Battle\Lethal_Battle\obj\Debug\netstandard2.1\Lethal_B.8F5CF508.Up2Date
 C:\Users\Utilisateur\source\repos\Lethal_Battle\Lethal_Battle\obj\Debug\netstandard2.1\Lethal_Battle.dll
 C:\Users\Utilisateur\source\repos\Lethal_Battle\Lethal_Battle\obj\Debug\netstandard2.1\Lethal_Battle.pdb
+C:\Users\Utilisateur\source\repos\Lethal_Battle\Lethal_Battle\obj\Debug\netstandard2.1\Lethal_Battle.sourcelink.json
