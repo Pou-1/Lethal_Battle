@@ -15,6 +15,12 @@
     <Reference Include="BepInEx">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\BepInEx.dll</HintPath>
     </Reference>
+    <Reference Include="LethalLib">
+      <HintPath>..\..\..\..\Downloads\plugins\LethalLib\LethalLib.dll</HintPath>
+    </Reference>
+    <Reference Include="PremiumScraps">
+      <HintPath>..\..\..\..\Downloads\PremiumScraps.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Netcode.Runtime">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Unity.Netcode.Runtime.dll</HintPath>
     </Reference>
