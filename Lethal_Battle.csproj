@@ -10,16 +10,13 @@
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Assembly-CSharp.dll</HintPath>
+      <HintPath>D:\applications\jeux\Steam\steamapps\common\Lethal Company\Lethal Company_Data\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="LethalLib">
-      <HintPath>..\..\..\..\Downloads\plugins\LethalLib\LethalLib.dll</HintPath>
-    </Reference>
-    <Reference Include="PremiumScraps">
-      <HintPath>..\..\..\..\Downloads\PremiumScraps.dll</HintPath>
+      <HintPath>..\..\..\..\Downloads\Evaisa-LethalLib-1.1.0\plugins\LethalLib\LethalLib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Netcode.Runtime">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Unity.Netcode.Runtime.dll</HintPath>

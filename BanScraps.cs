@@ -82,11 +82,12 @@ namespace Lethal_Battle
 
                 "FRIEREN",
                 "CHOCOBO",
+                "SODA",
+                "BASICS OF ARCHITECTURE",
                 "AINZ OOAL GOWN",
                 "HELM OF DOMINATION",
                 "THE KING",
                 "HARRY MASON",
-                "CristalItem",
                 "MYSTIC CRISTAL",
                 "PUPPY SHARK",
                 "RUPEE",
@@ -99,7 +100,16 @@ namespace Lethal_Battle
                 "CROUTON",
                 "BALAN STATUE",
                 "SCROLL OF TOWN PORTAL",
-                "GALVANIZED SQUARE STEEL",
+
+                "BOINK",
+                "EVEE",
+                "CUP NOODLE",
+                "MOAI",
+                "BOINK",
+                "FROGGY CHAIR",
+                "SUPER SNEAKERS",
+                "NOKIA",
+                "FREDDY FAZBEAR",
             };
             return bannedScraps;
         }
