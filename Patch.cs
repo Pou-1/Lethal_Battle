@@ -13,7 +13,6 @@ namespace Lethal_Battle
 
         public static void Changes() // is called on the start of a new level
         {
-            ManageBattle.ItemsSpawner();
             if (TimeOfDay.Instance.daysUntilDeadline == 0 && TimeOfDay.Instance.currentLevel.PlanetName == "71 Gordion")
             {
                 Plugin.log.LogError("In gordion for the last phase!");
@@ -28,6 +27,7 @@ namespace Lethal_Battle
                 else
                 {
                     Plugin.log.LogError("battle !");
+                    ManageBattle.ItemsSpawner();
                 }
             }
         }

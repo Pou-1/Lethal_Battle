@@ -18,7 +18,6 @@ namespace Lethal_Battle
 
             List<Item> scraps = new List<Item>();
 
-
             foreach (var item in Items.shopItems)
                 scraps.Add(item.item);
 
@@ -51,9 +50,10 @@ namespace Lethal_Battle
 
             Plugin.log.LogError("SPAWN==========================");
 
-            int randomInt = random.Next(scraps.Count);
             for (int j = 0; j < StartOfRound.Instance.allPlayerObjects.Length * 2.5; j++)
             {
+                Plugin.log.LogError(j);
+                int randomInt = random.Next(scraps.Count);
                 if(scraps[j].spawnPrefab && scraps[j] != null)
                 {
                     SpawnScrap(scraps[j], spawnPosition);
