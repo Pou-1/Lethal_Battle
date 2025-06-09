@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 using Unity.Netcode;
 using LethalLib.Modules;
 
@@ -15,6 +14,8 @@ namespace Lethal_Battle
             {
                 return;
             }
+            Plugin.log.LogError("=====================================");
+            Plugin.log.LogError("LETHAL BATTLE : getting all items... c:");
 
             List<Item> scraps = new List<Item>();
 
@@ -31,48 +32,54 @@ namespace Lethal_Battle
                 scraps.Add(item);
 
             string[] banScraps = BanScraps.getBannedScraps();
+            Plugin.log.LogError("LETHAL BATTLE : removing non lethal items... qwq");
 
             scraps.RemoveAll(item =>
                 banScraps.Any(banned =>
-                    string.Equals(banned.Trim(), item.itemName.Trim().ToUpper(), StringComparison.OrdinalIgnoreCase)
+                    string.Equals(banned.Trim(), item.itemName.Trim().ToUpper(), System.StringComparison.OrdinalIgnoreCase)
                 )
             );
 
-            Vector3 spawnPosition = new Vector3(24, -11, 12);
-            System.Random random = new System.Random();
+            Plugin.log.LogError("LETHAL BATTLE : spawning items... >w<");
 
-            Plugin.log.LogError("scraps======================");
-
-            for (int i = 0; i < scraps.Count; i++)
+            for (int j = 0; j < StartOfRound.Instance.livingPlayers * 25; j++)
             {
-                    Plugin.log.LogError(scraps[i].name);
-            }
-
-            Plugin.log.LogError("SPAWN==========================");
-
-            for (int j = 0; j < StartOfRound.Instance.allPlayerObjects.Length * 2.5; j++)
-            {
-                Plugin.log.LogError(j);
-                int randomInt = random.Next(scraps.Count);
                 if(scraps[j].spawnPrefab && scraps[j] != null)
                 {
-                    SpawnScrap(scraps[j], spawnPosition);
+                    int randomInt = Random.Range(0, scraps.Count);
+                    Vector3 spawnPosition = PositionManager();
+                    Plugin.log.LogError(scraps[randomInt].itemName);
+                    SpawnScrap(scraps[randomInt], spawnPosition);
                 }
             }
+            Plugin.log.LogError("LETHAL BATTLE : items spawned sucessfully !!! UwU");
+            Plugin.log.LogError("=====================================");
+        }
+
+        private static Vector3 PositionManager()
+        {
+            Vector3 spawnPosition = RoundManager.Instance.outsideAINodes[Random.Range(0, RoundManager.Instance.outsideAINodes.Length)].transform.position;
+            Vector3 spawnPositionTemp = spawnPosition;
+            spawnPosition += new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
+            spawnPosition = RoundManager.Instance.GetNavMeshPosition(spawnPosition);
+            if (!RoundManager.Instance.GotNavMeshPositionResult)
+            {
+                spawnPosition = spawnPositionTemp;
+            }
+            Plugin.log.LogError(spawnPosition);
+            return spawnPosition;
         }
 
         private static void SpawnScrap(Item scrap, Vector3 position)
         {
-            GameObject gameObject = UnityEngine.Object.Instantiate(scrap.spawnPrefab, position,
-                Quaternion.identity, RoundManager.Instance.spawnedScrapContainer);
+            GameObject gameObject =
+                UnityEngine.Object.Instantiate(scrap.spawnPrefab, position, Quaternion.identity, RoundManager.Instance.spawnedScrapContainer);
 
             GrabbableObject component = gameObject.GetComponent<GrabbableObject>();
             component.transform.rotation = Quaternion.Euler(component.itemProperties.restingRotation);
             component.fallTime = 0f;
             component.scrapValue = 0;
-            NetworkObject netObj = gameObject.GetComponent<NetworkObject>();
             component.NetworkObject.Spawn();
-            component.FallToGround(true);
         }
     }
 }

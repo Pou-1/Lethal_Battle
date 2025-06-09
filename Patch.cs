@@ -13,7 +13,7 @@ namespace Lethal_Battle
 
         public static void Changes() // is called on the start of a new level
         {
-            if (TimeOfDay.Instance.daysUntilDeadline == 0 && TimeOfDay.Instance.currentLevel.PlanetName == "71 Gordion")
+            if (!Plugin.hasBattleStarted && TimeOfDay.Instance.daysUntilDeadline == 0 && TimeOfDay.Instance.currentLevel.PlanetName == "71 Gordion")
             {
                 Plugin.log.LogError("In gordion for the last phase!");
                 int potentialBodiesValue = 5 * (StartOfRound.Instance.allPlayerObjects.Length - 1); // Cout value of every player except one * 5 
@@ -28,6 +28,7 @@ namespace Lethal_Battle
                 {
                     Plugin.log.LogError("battle !");
                     ManageBattle.ItemsSpawner();
+                    Plugin.hasBattleStarted = true;
                 }
             }
         }

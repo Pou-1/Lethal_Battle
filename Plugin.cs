@@ -12,6 +12,7 @@ namespace Lethal_Battle
         const string NAME = "Lethal Battle";
         const string VERSION = "0.0.1";
         static Plugin instance;
+        public static bool hasBattleStarted = false;
         public static ManualLogSource log;
 
         public readonly Harmony harmony = new Harmony(GUID);

@@ -100,6 +100,7 @@ namespace Lethal_Battle
                 "CROUTON",
                 "BALAN STATUE",
                 "SCROLL OF TOWN PORTAL",
+                "MOAI STATUE",
 
                 "BOINK",
                 "EVEE",
