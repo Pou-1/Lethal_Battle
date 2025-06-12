@@ -1,0 +1,10 @@
+{
+    "name": "LethalBattle",
+    "version_number": "1.0.0",
+    "website_url": "https://github.com/Pou-1/Lethal_Battle",
+    "description": "Add a little battle with your friends at the end of the game !",
+    "dependencies": [
+        "NavMeshInCompany-1.1.0",
+        "BepInEx-BepInExPack-5.4.2100"
+    ]
+}

@@ -11,6 +11,7 @@
     </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Assembly-CSharp.dll</HintPath>
+      <Publicize>true</Publicize>
     </Reference>
     <Reference Include="BepInEx">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\BepInEx.dll</HintPath>
@@ -21,11 +22,17 @@
     <Reference Include="Unity.Netcode.Runtime">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Unity.Netcode.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.AIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.AssetBundleModule.dll</HintPath>
@@ -33,6 +40,14 @@
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.UI.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.1">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>

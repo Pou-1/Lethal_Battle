@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using HarmonyLib;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Lethal_Battle
 {
@@ -10,7 +11,6 @@ namespace Lethal_Battle
     {
         [HarmonyPostfix]
         [HarmonyPatch("FinishGeneratingNewLevelClientRpc")]
-
         public static void Changes() // is called on the start of a new level
         {
             if (!Plugin.hasBattleStarted && TimeOfDay.Instance.daysUntilDeadline == 0 && TimeOfDay.Instance.currentLevel.PlanetName == "71 Gordion")
@@ -29,6 +29,32 @@ namespace Lethal_Battle
                     Plugin.log.LogError("battle !");
                     ManageBattle.ItemsSpawner();
                     Plugin.hasBattleStarted = true;
+                }
+            }
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch("Update")]
+        public static void ChangesUI_death()
+        {
+            if (Plugin.hasBattleStarted)
+            {
+                StartMatchLever shipLever = Object.FindObjectOfType<StartMatchLever>();
+                shipLever.triggerScript.interactable = false;
+
+                if (Plugin.instance.UI_players_alive_and_kills != null && !Plugin.hasMessageWonShowed)
+                {
+                    UI.UpdateUI();
+                }
+
+                if (StartOfRound.Instance.livingPlayers == 1 && !Plugin.hasMessageWonShowed)
+                {
+                    string winnerUsername = ManageBattle.GetPlayers()[0].playerUsername;
+                    HUDManager.Instance.DisplayTip(winnerUsername + " won !!!", "some loosers are here ...", true);
+
+                    ManageBattle.MakeShipLeave(shipLever);
+                    
+                    Plugin.hasMessageWonShowed = true;
                 }
             }
         }

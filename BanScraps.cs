@@ -101,6 +101,7 @@ namespace Lethal_Battle
                 "BALAN STATUE",
                 "SCROLL OF TOWN PORTAL",
                 "MOAI STATUE",
+                "MOON'S TEAR",
 
                 "BOINK",
                 "EVEE",
