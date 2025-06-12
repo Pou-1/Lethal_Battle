@@ -11,6 +11,7 @@ You just need to go to the company on the last day without the qota !
 -   You will see a new hud counter of deaths
 -   Items will spawn
 -   When every player except one is alive it will say "winner" and the ship will leave
+
 ![Preview](https://github.com/user-attachments/assets/3b171a7e-693a-45f1-92c9-252f9c86ce4d)
 
 ### Dependencies 🤫
