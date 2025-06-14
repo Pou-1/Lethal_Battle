@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using HarmonyLib;
+using Lethal_Battle.NewFolder;
 
 namespace Lethal_Battle
 {

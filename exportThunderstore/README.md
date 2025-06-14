@@ -17,6 +17,10 @@ You just need to go to the company on the last day without the qota !
 -   Wen the last player is killed a message is shown
     ![20250613205743_1](https://github.com/user-attachments/assets/01cb0969-9c99-4491-8d93-2425e3531148)
 
+## To End The Battle
+
+You just need to go to another moon and pull the lever when you arrived.
+
 ## Dependencies 🤫
 
 -   [NavMeshInCompany](https://thunderstore.io/c/lethal-company/p/Kittenji/NavMeshInCompany/)
@@ -26,7 +30,6 @@ You just need to go to the company on the last day without the qota !
 ## Bugs 🤫
 
 -   Some items spawn into the map thanks to NavMesInCompany ☠️
--   The ship leave but don't end the map (just need to restart a game but i will fix soon)
 
 ### Feedback
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Lethal_Battle
+namespace Lethal_Battle.NewFolder
 {
     internal class BanScraps
     {
@@ -79,6 +79,7 @@ namespace Lethal_Battle
                 "CLOCK",
                 "BINOCULARS",
                 "AIRHORN",
+                "ZAP GUN",
 
                 "FRIEREN",
                 "CHOCOBO",

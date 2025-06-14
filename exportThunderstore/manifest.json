@@ -1,6 +1,6 @@
 {
     "name": "LethalBattle",
-    "version_number": "1.0.2",
+    "version_number": "1.0.3",
     "website_url": "https://github.com/Pou-1/Lethal_Battle",
     "description": "Add a little battle with your friends at the end of the game !",
     "dependencies": [
