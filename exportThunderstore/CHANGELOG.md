@@ -3,7 +3,7 @@
 -   **Added**
     -   Battle to the dead at the end of the game
 
-# 1.0.3 Make sure only lethal items spawns
+# 1.0.4 Make sure only lethal items spawns
 
 -   **Fix**
     -   List of items that spawn at the start
