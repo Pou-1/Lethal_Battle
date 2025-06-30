@@ -20,15 +20,14 @@ namespace Lethal_Battle.NewFolder
             Plugin.log.LogInfo("LETHAL BATTLE : getting all items... c:");
 
             List<WeightedItem> scraps = ManageScraps.GetFilteredWeightedItems();
-
-            for (int j = 0; j < 70; j++)
+            
+            for (int j = 0; j < 100; j++)
             {
                 Item item = ManageScraps.GetRandomItem(scraps);
                 Vector3 spawnPosition = PositionManager();
 
                 if (item != null && item.spawnPrefab != null)
                 {
-                    //Plugin.log.LogError(item.itemName);
                     ManageScraps.SpawnScrap(item, spawnPosition);
                 }
             }

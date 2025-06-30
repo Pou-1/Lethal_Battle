@@ -14,7 +14,7 @@ namespace Lethal_Battle
     {
         const string GUID = "POUY.LETHAL_BATTLE";
         const string NAME = "Lethal Battle";
-        const string VERSION = "0.0.1";
+        const string VERSION = "0.0.3";
         public static Plugin instance;
         public static bool hasBattleStarted = false;
         public static ManualLogSource log;
