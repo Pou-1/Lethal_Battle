@@ -8,3 +8,8 @@
 -   **Fix**
     -   List of items that spawn at the start
     -   Reduce UI size to not interfere with game object infos
+
+# 1.0.5 Modded company compatibility
+
+-   **Fix**
+-   A bad condition that now permit the mod to start at company and modded company
