@@ -1,8 +1,11 @@
 ﻿using System.Linq;
 using HarmonyLib;
 using Lethal_Battle.NewFolder;
+using LethalLib.Modules;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
+using static LethalLib.Modules.ContentLoader;
 
 namespace Lethal_Battle
 {

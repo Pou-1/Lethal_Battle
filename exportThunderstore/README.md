@@ -29,7 +29,7 @@ You just need to go to another moon and pull the lever when you arrived.
 
 ## Bugs 🤫
 
--   Some items spawn into the map thanks to NavMesInCompany ☠️
+-   Some items spawn into the map sometimes but you can still play the fight don't worry
 
 ### Feedback
 

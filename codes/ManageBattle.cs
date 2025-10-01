@@ -20,8 +20,13 @@ namespace Lethal_Battle.NewFolder
             Plugin.log.LogInfo("LETHAL BATTLE : getting all items... c:");
 
             List<WeightedItem> scraps = ManageScraps.GetFilteredWeightedItems();
-            
-            for (int j = 0; j < 100; j++)
+
+            int numberOfItems = 100;
+            if (TimeOfDay.Instance.currentLevel.PlanetName.ToUpper() == "98 GALETRY")
+            {
+                numberOfItems = 200;
+            }
+            for (int j = 0; j < numberOfItems; j++)
             {
                 Item item = ManageScraps.GetRandomItem(scraps);
                 Vector3 spawnPosition = PositionManager();
@@ -35,16 +40,50 @@ namespace Lethal_Battle.NewFolder
             Plugin.log.LogInfo("LETHAL BATTLE : items spawned successfully !!! UwU");
         }
 
+        private static List<Vector3> GalatryNodesList()
+        {
+            List<Vector3> artificialNodes = new List<Vector3>();
+
+            artificialNodes.Add(new Vector3(-74, 21, -16));
+            artificialNodes.Add(new Vector3(-129, 1, -15));
+            artificialNodes.Add(new Vector3(-194, 1, -27));
+            artificialNodes.Add(new Vector3(-70, 1, 17));
+            artificialNodes.Add(new Vector3(-70, 1, 17));
+            artificialNodes.Add(new Vector3(-70, 1, 17));
+            artificialNodes.Add(new Vector3(-70, 1, 17));
+            artificialNodes.Add(new Vector3(-70, 1, 17));
+            artificialNodes.Add(new Vector3(-36, 1, -14));
+            artificialNodes.Add(new Vector3(-2, -2, 20));
+            artificialNodes.Add(new Vector3(-2, 1, 47));
+            artificialNodes.Add(new Vector3(-2, -1, -1));
+            artificialNodes.Add(new Vector3(56, -1, 13));
+            artificialNodes.Add(new Vector3(-27, 1, 11));
+            artificialNodes.Add(new Vector3(23, 1, -26));
+            artificialNodes.Add(new Vector3(-8, -2, -27));
+            artificialNodes.Add(new Vector3(-104, 11, -16));
+            artificialNodes.Add(new Vector3(-51, 20, -13));
+            artificialNodes.Add(new Vector3(-31, 11, -2));
+            artificialNodes.Add(new Vector3(-31, 11, -26));
+            artificialNodes.Add(new Vector3(46, -1, -8));
+            artificialNodes.Add(new Vector3(-66, 1, -44));
+
+            return artificialNodes;
+        }
+
         private static Vector3 PositionManager()
         {
-            Vector3 spawnPosition = RoundManager.Instance.outsideAINodes[Random.Range(0, RoundManager.Instance.outsideAINodes.Length)].transform.position;
-            Vector3 spawnPositionTemp = spawnPosition;
-            spawnPosition += new Vector3(Random.Range(-10, 10), 0, Random.Range(-10, 10));
-            spawnPosition = RoundManager.Instance.GetNavMeshPosition(spawnPosition);
-            if (!RoundManager.Instance.GotNavMeshPositionResult)
+            Vector3 spawnPosition;
+
+            if (TimeOfDay.Instance.currentLevel.PlanetName.ToUpper() != "98 GALETRY")
             {
-                spawnPosition = spawnPositionTemp;
+                spawnPosition = RoundManager.Instance.outsideAINodes[Random.Range(0, RoundManager.Instance.outsideAINodes.Length)].transform.position;
             }
+            else
+            {
+                List<Vector3> artificialNodes = GalatryNodesList();
+                spawnPosition = artificialNodes[Random.Range(0, artificialNodes.Count)];
+            }
+            spawnPosition = RoundManager.Instance.GetRandomNavMeshPositionInRadius(spawnPosition, 20);
             return spawnPosition;
         }
 

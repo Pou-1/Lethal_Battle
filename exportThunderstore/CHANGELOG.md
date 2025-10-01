@@ -1,7 +1,12 @@
-# 1.0.0 Initial release
+# 1.0.6 Galetry Modded company compatibility
 
--   **Added**
-    -   Battle to the dead at the end of the game
+-   **Fix**
+-   A bug in the modded company galetry, now you can battle even in this moded company !
+
+# 1.0.5 Modded company compatibility
+
+-   **Fix**
+-   A bad condition that now permit the mod to start at company and modded company
 
 # 1.0.4 Make sure only lethal items spawns
 
@@ -9,7 +14,7 @@
     -   List of items that spawn at the start
     -   Reduce UI size to not interfere with game object infos
 
-# 1.0.5 Modded company compatibility
+# 1.0.0 Initial release
 
--   **Fix**
--   A bad condition that now permit the mod to start at company and modded company
+-   **Added**
+    -   Battle to the dead at the end of the game
