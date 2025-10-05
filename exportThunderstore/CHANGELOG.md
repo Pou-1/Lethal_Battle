@@ -1,3 +1,8 @@
+# 1.0.7 Lethal Nuke Mod company compatibility
+
+-   **Added**
+-   The nuclear Bomb of lethal Nuke in the scrap spawnable in the battle !
+
 # 1.0.6 Galetry Modded company compatibility
 
 -   **Fix**
