@@ -6,7 +6,7 @@ Compatible with v70 of Lethal Company.
 
 ## To Start the End Battle
 
-You just need to go to the company on the last day without the qota !
+You just need to go to the company on the last day without the qota ! (or if not in the last day but in the company just type "/battle" into the chat and "CONFIRM")
 
 -   You will see a new hud counter of deaths
     ![image](https://github.com/user-attachments/assets/78b775c4-5781-42e4-86e8-f4e70b4eaecc)
@@ -21,13 +21,17 @@ You just need to go to the company on the last day without the qota !
 
 You just need to go to another moon and pull the lever when you arrived.
 
-## Dependencies 🤫
+## Dependencies
 
 -   [NavMeshInCompany](https://thunderstore.io/c/lethal-company/p/Kittenji/NavMeshInCompany/)
 -   [BepInExPack](https://thunderstore.io/c/lethal-company/p/BepInEx/BepInExPack/)
 -   [LethalLib](https://thunderstore.io/c/lethal-company/p/Evaisa/LethalLib/)
 
-## Bugs 🤫
+## Json file
+
+-   You can change the items that spawn into the battle with the items.json, you just need to put the name of the item you want and the value (the more the value, the more chances the item has to spawn)
+
+## Bugs
 
 -   Some items spawn into the map sometimes but you can still play the fight don't worry
 

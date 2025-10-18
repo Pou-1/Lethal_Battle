@@ -1,11 +1,11 @@
 {
-    "name": "LethalBattle",
-    "version_number": "1.0.7",
-    "website_url": "https://github.com/Pou-1/Lethal_Battle",
-    "description": "Add a little battle with your friends at the end of the game !",
-    "dependencies": [
-        "Kittenji-NavMeshInCompany-1.0.3",
-        "BepInEx-BepInExPack-5.4.2100",
-        "Evaisa-LethalLib-1.1.1"
-    ]
+	"name": "LethalBattle",
+	"version_number": "1.0.8",
+	"website_url": "https://github.com/Pou-1/Lethal_Battle",
+	"description": "Add a little battle with your friends at the end of the game !",
+	"dependencies": [
+		"Kittenji-NavMeshInCompany-1.0.3",
+		"BepInEx-BepInExPack-5.4.2100",
+		"Evaisa-LethalLib-1.1.1"
+	]
 }

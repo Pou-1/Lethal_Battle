@@ -1,3 +1,8 @@
+# 1.0.8 JSON and command
+
+-   **Added**
+-   A JSON to select items spawns into the battle and a command to start the battle
+
 # 1.0.7 Lethal Nuke Mod company compatibility
 
 -   **Added**

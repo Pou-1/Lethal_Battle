@@ -4,6 +4,8 @@ using System.Linq;
 using Unity.Netcode;
 using LethalLib.Modules;
 using GameNetcodeStuff;
+using BepInEx;
+using System.IO;
 
 namespace Lethal_Battle.NewFolder
 {

@@ -43,9 +43,6 @@ namespace Lethal_Battle
 
             log = Logger;
 
-            string jsonPath = Path.Combine(Paths.PluginPath, "items.json");
-            WeightedItem.LoadWeightsFromJson(jsonPath);
-
             log.LogMessage("Lethal Battle Loaded !");
 
             harmony.PatchAll();

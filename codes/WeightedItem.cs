@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using BepInEx;
 using Newtonsoft.Json;
 
 namespace Lethal_Battle.NewFolder
@@ -18,7 +19,7 @@ namespace Lethal_Battle.NewFolder
         }
 
         public static Dictionary<string, float> WeightsByName { get; private set; } = new Dictionary<string, float>();
-
+    
         public static void LoadWeightsFromJson(string jsonPath)
         {
             try
@@ -60,6 +61,8 @@ namespace Lethal_Battle.NewFolder
 
         public static List<WeightedItem> GetBattleItemsWeighted(List<Item> allitems)
         {
+            string jsonPath = Path.Combine(Paths.PluginPath, "Lethal_Battle/items.json");
+            LoadWeightsFromJson(jsonPath);
             List<WeightedItem> result = new List<WeightedItem>();
 
             foreach (Item item in allitems)
