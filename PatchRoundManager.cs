@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using GameNetcodeStuff;
 using HarmonyLib;
 using Lethal_Battle.NewFolder;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace Lethal_Battle
 {

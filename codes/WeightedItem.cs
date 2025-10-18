@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
+using Newtonsoft.Json;
 
 namespace Lethal_Battle.NewFolder
 {
@@ -16,38 +17,40 @@ namespace Lethal_Battle.NewFolder
             this.weight = weight;
         }
 
-        public static readonly Dictionary<string, float> WeightsByName = new Dictionary<string, float>
+        public static Dictionary<string, float> WeightsByName { get; private set; } = new Dictionary<string, float>();
+
+        public static void LoadWeightsFromJson(string jsonPath)
         {
-            { "YIELD SIGN", 50f },
-            { "STOP SIGN", 50f },
-            { "KITCHEN KNIFE", 20f },
-            { "STUN GRENADE", 2 },
-            { "SHOVEL", 50f },
-            { "DOUBLE-BARREL", 10f },
-            { "TRAGEDY", 20f },
-            { "COMEDY", 20f },
+            try
+            {
+                if (!File.Exists(jsonPath))
+                {
+                    Plugin.log.LogError("Fichier JSON introuvable : " + jsonPath);
+                    return;
+                }
 
-            // ============= MODED ITEMS ============= \\
-            { "COMICALLY LARGE SPOON", 10f },
-            { "AIRHORN", 5f },
-            { "FRIENDSHIP ENDER", 20f },
-            { "STICK", 15f },
-            { "GALVANIZED SQUARE STEEL", 10f },
-            { "BOMB", 20f },
-            { "CONTROLLER", 1f },
-            { "MAJORA'S MASK", 10f },
-            { "DEATH NOTE", 0.5f },
-            { "UNO REVERSE CARD", 10f },
-            { "MASTER SWORD", 5f },
-            { "OCARINA", 10f },
-            { "TOTEM OF UNDYING", 1f },
-            { "DANCE NOTE", 5f },
-            { "UNO REVERSE CARD DX", 20f },
-            { "BOOMBOX", 25f },
+                string jsonContent = File.ReadAllText(jsonPath);
 
-            { "NUCLEAR BOMB", 1f },
+                var list = JsonConvert.DeserializeObject<List<ItemWeight>>(jsonContent);
 
-        };
+                if (list == null || list.Count == 0)
+                {
+                    Plugin.log.LogError("Aucun item trouvé dans le JSON !");
+                    return;
+                }
+
+                WeightsByName = list.ToDictionary(
+                    x => x.name.Trim().ToUpper(),
+                    x => x.value
+                );
+
+                Plugin.log.LogInfo(WeightsByName.Count + " items chargés depuis " + jsonPath);
+            }
+            catch (Exception ex)
+            {
+                Plugin.log.LogError("Erreur lors du chargement du JSON : " + ex.Message);
+            }
+        }
 
         public static float GetWeight(string itemName)
         {
@@ -61,12 +64,18 @@ namespace Lethal_Battle.NewFolder
 
             foreach (Item item in allitems)
             {
-                Plugin.log.LogError(item.itemName.ToUpper());
+                Plugin.log.LogInfo(item.itemName.ToUpper());
                 float weight = GetWeight(item.itemName);
                 result.Add(new WeightedItem(item, weight));
             }
 
             return result;
+        }
+        
+        private class ItemWeight
+        {
+            public string name { get; set; }
+            public float value { get; set; }
         }
     }
 }

@@ -19,6 +19,12 @@
     <Reference Include="LethalLib">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\LethalLib.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.InputSystem">
+      <HintPath>..\..\..\..\Downloads\Unity.InputSystem.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Netcode.Runtime">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Unity.Netcode.Runtime.dll</HintPath>
     </Reference>
@@ -39,6 +45,9 @@
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputModule">
+      <HintPath>..\..\..\..\Downloads\UnityEngine.InputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.UI.dll</HintPath>

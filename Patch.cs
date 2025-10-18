@@ -1,9 +1,13 @@
 ﻿using System.Linq;
+using GameNetcodeStuff;
 using HarmonyLib;
+using Lethal_Battle.codes;
 using Lethal_Battle.NewFolder;
 using LethalLib.Modules;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using static LethalLib.Modules.ContentLoader;
 
@@ -61,6 +65,81 @@ namespace Lethal_Battle
                     Plugin.hasMessageWonShowed = true;
                 }
             }
+        }
+
+        [HarmonyPatch(typeof(HUDManager), "SubmitChat_performed")]
+        [HarmonyPrefix]
+        public static bool Prefix(HUDManager __instance, InputAction.CallbackContext context)
+        {
+            if (!context.performed)
+                return true;
+
+            string text = __instance.chatTextField.text;
+            if (string.IsNullOrEmpty(text))
+                return true;
+
+            PlayerControllerB local = GameNetworkManager.Instance.localPlayerController;
+            if (local == null)
+                return true;
+
+            StartOfRound manager = local.playersManager;
+            if (manager == null)
+                return true;
+
+            if (Plugin.verifying)
+            {
+                if (text.Equals("CONFIRM", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    ResetTextbox(__instance, local);
+                    ManageChat.AcceptRestart(manager);
+                    ManageBattle.ItemsSpawner();
+                    Plugin.hasBattleStarted = true;
+                    return false;
+                }
+
+                if (text.Equals("DENY", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    ResetTextbox(__instance, local);
+                    ManageChat.DeclineRestart();
+                    return false;
+                }
+            }
+
+            if (text.Equals("/battle", System.StringComparison.OrdinalIgnoreCase))
+            {
+                ResetTextbox(__instance, local);
+                if (!GameNetworkManager.Instance.isHostingGame)
+                {
+                    ManageChat.SendChatMessage("Only the host can start a battle.");
+                    return false;
+                }
+
+                if (TimeOfDay.Instance.currentLevel.planetHasTime || TimeOfDay.Instance.currentLevel.spawnEnemiesAndScrap)
+                {
+                    ManageChat.SendChatMessage("Must be in a company battle.");
+                    return false;
+                }
+
+                if (Plugin.hasBattleStarted)
+                {
+                    ManageChat.SendChatMessage("Must not be in a battle.");
+                    return false;
+                }
+
+                ManageChat.ConfirmRestart();
+
+                return false;
+            }
+            return true;
+        }
+
+        private static void ResetTextbox(HUDManager manager, PlayerControllerB local)
+        {
+            local.isTypingChat = false;
+            manager.chatTextField.text = "";
+            EventSystem.current.SetSelectedGameObject(null);
+            manager.PingHUDElement(manager.Chat, 2f, 1f, 0.2f);
+            manager.typingIndicator.enabled = false;
         }
     }
 }

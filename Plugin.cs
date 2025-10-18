@@ -1,9 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using BepInEx;
+using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
+using Lethal_Battle.NewFolder;
+using LethalLib;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -25,6 +29,8 @@ namespace Lethal_Battle
         public GameObject? UI_players_alive_and_kills;
         public int numberOfPlayers;
 
+        public static bool verifying = false;
+
         public void Awake()
         {
             instance = this;
@@ -35,10 +41,14 @@ namespace Lethal_Battle
 
             UI_Lethal_Battle = bundle.LoadAsset<GameObject>(path);
 
-            harmony.PatchAll();
-
             log = Logger;
+
+            string jsonPath = Path.Combine(Paths.PluginPath, "items.json");
+            WeightedItem.LoadWeightsFromJson(jsonPath);
+
             log.LogMessage("Lethal Battle Loaded !");
+
+            harmony.PatchAll();
         }
     }
 }
