@@ -16,7 +16,7 @@ namespace Lethal_Battle
         {
             if (Plugin.hasBattleStarted && Plugin.instance.UI_players_alive_and_kills != null)
             {
-                UI.UIDelete();
+                ManageUI.UIDelete();
                 Plugin.hasMessageWonShowed = false;
                 Plugin.hasBattleStarted = false;
             }

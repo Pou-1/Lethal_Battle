@@ -7,7 +7,7 @@ namespace Lethal_Battle.NewFolder
 {
     internal class ManageScraps
     {
-        public static List<WeightedItem> GetFilteredWeightedItems()
+        public static List<ManageJson> GetFilteredWeightedItems()
         {
             List<Item> items = new List<Item>();
 
@@ -43,13 +43,13 @@ namespace Lethal_Battle.NewFolder
                 }
             }
 
-            List<WeightedItem> itemsweighted = new List<WeightedItem>();
-            itemsweighted = WeightedItem.GetBattleItemsWeighted(items);
+            List<ManageJson> itemsweighted = new List<ManageJson>();
+            itemsweighted = ManageJson.GetBattleItemsWeighted(items);
 
             return itemsweighted;
         }
 
-        public static Item GetRandomItem(List<WeightedItem> weightedItems)
+        public static Item GetRandomItem(List<ManageJson> weightedItems)
         {
             float totalWeight = weightedItems.Sum(wi => wi.weight);
             float rand = Random.Range(0f, totalWeight);

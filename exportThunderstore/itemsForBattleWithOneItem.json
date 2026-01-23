@@ -1,0 +1,17 @@
+[
+	{ "name": "YIELD SIGN", "value": 50 },
+	{ "name": "STOP SIGN", "value": 50 },
+	{ "name": "KITCHEN KNIFE", "value": 20 },
+	{ "name": "SHOVEL", "value": 50 },
+	
+	{ "name": "COMICALLY LARGE SPOON", "value": 10 },
+	{ "name": "AIRHORN", "value": 5 },
+	{ "name": "STICK", "value": 15 },
+	{ "name": "BOMB", "value": 20 },
+	{ "name": "CONTROLLER", "value": 1 },
+	{ "name": "OCARINA", "value": 10 },
+
+	{ "name": "BOMB COLLAR", "value": 5 },
+
+	{ "name": "NUCLEAR BOMB", "value": 1 }
+]

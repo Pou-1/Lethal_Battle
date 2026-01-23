@@ -4,7 +4,7 @@ using GameNetcodeStuff;
 
 namespace Lethal_Battle.NewFolder
 {
-    internal class UI
+    internal class ManageUI
     {
         public static void UISpawn()
         {

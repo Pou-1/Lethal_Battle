@@ -15,15 +15,15 @@ namespace Lethal_Battle.NewFolder
     {
         public async static void ItemsSpawner()
         {
-            UI.UISpawn();
-            HUDManager.Instance.DisplayTip("Time to kill !!!", " And die for some loosers...", true);
+            ManageUI.UISpawn();
+            HUDManager.Instance.DisplayTip("The company demand blood", " Only one can live... may the game start", true);
 
             if (!GameNetworkManager.Instance.localPlayerController.IsHost)
                 return;
 
             Plugin.log.LogInfo("LETHAL BATTLE : getting all items... c:");
 
-            List<WeightedItem> scraps = ManageScraps.GetFilteredWeightedItems();
+            List<ManageJson> scraps = ManageScraps.GetFilteredWeightedItems();
 
             int numberOfItems = 100;
             if (TimeOfDay.Instance.currentLevel.PlanetName.ToUpper() == "98 GALETRY")
@@ -113,7 +113,7 @@ namespace Lethal_Battle.NewFolder
                 List<Vector3> artificialNodes = GalatryNodesList();
                 spawnPosition = artificialNodes[UnityEngine.Random.Range(0, artificialNodes.Count)];
             }
-            spawnPosition = RoundManager.Instance.GetRandomNavMeshPositionInRadius(spawnPosition, 20);
+            spawnPosition = RoundManager.Instance.GetRandomNavMeshPositionInRadius(spawnPosition, 30);
             return spawnPosition;
         }
 
@@ -121,6 +121,7 @@ namespace Lethal_Battle.NewFolder
         {
             if (shipLever != null)
             {
+                Plugin.log.LogInfo("LETHAL BATTLE : End of Battle, ship is living ! GG");
                 shipLever.triggerScript.animationString = "SA_PushLeverBack";
                 shipLever.leverHasBeenPulled = false;
                 shipLever.triggerScript.interactable = false;

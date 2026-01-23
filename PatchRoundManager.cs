@@ -15,9 +15,9 @@ namespace Lethal_Battle
         [HarmonyPatch("FinishGeneratingNewLevelClientRpc")]
         public static void Changes()
         {
-            if (!Plugin.hasBattleStarted && Plugin.instance.numberOfPlayers > 1 && TimeOfDay.Instance.daysUntilDeadline == 0 && TimeOfDay.Instance.currentLevel.planetHasTime == false && TimeOfDay.Instance.currentLevel.spawnEnemiesAndScrap == false)
+            if (!Plugin.hasBattleStarted && StartOfRound.Instance.livingPlayers > 1 && TimeOfDay.Instance.daysUntilDeadline == 0 && TimeOfDay.Instance.currentLevel.planetHasTime == false && TimeOfDay.Instance.currentLevel.spawnEnemiesAndScrap == false)
             {
-                Plugin.log.LogError("In a company for the last phase!");
+                Plugin.log.LogInfo("LETHAL BATTLE : In a company for the last phase!");
                 int potentialBodiesValue = 5 * (StartOfRound.Instance.allPlayerObjects.Length - 1);
                 int scrapsValue = UnityEngine.Object.FindObjectsOfType<GrabbableObject>().Where(o => o.itemProperties.isScrap && o.itemProperties.minValue > 0
                     && (!(o is StunGrenadeItem g) || !g.hasExploded || !g.DestroyGrenade)
@@ -25,11 +25,11 @@ namespace Lethal_Battle
 
                 if (scrapsValue + potentialBodiesValue + TimeOfDay.Instance.quotaFulfilled >= TimeOfDay.Instance.profitQuota)
                 {
-                    Plugin.log.LogError("No battle !");
+                    Plugin.log.LogInfo("LETHAL BATTLE : No battle because you have the qota ! :3");
                 }
                 else
                 {
-                    Plugin.log.LogError("Battle !");
+                    Plugin.log.LogInfo("LETHAL BATTLE : Battle because ur too poor, the company want blood !");
                     ManageBattle.ItemsSpawner();
                     Plugin.hasBattleStarted = true;
                 }
@@ -49,7 +49,7 @@ namespace Lethal_Battle
 
                 if (Plugin.instance.UI_players_alive_and_kills != null && !Plugin.hasMessageWonShowed)
                 {
-                    UI.UpdateUI();
+                    ManageUI.UpdateUI();
                 }
 
                 if (StartOfRound.Instance.livingPlayers == 1 && !Plugin.hasMessageWonShowed)
