@@ -5,52 +5,59 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <FileAlignment>1024</FileAlignment>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <FileAlignment>1024</FileAlignment>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\0Harmony.dll</HintPath>
+      <HintPath>0Harmony.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Assembly-CSharp.dll</HintPath>
-      <Publicize>true</Publicize>
+      <HintPath>Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="BepInEx">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\BepInEx.dll</HintPath>
+      <HintPath>BepInEx.dll</HintPath>
     </Reference>
     <Reference Include="LethalLib">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\LethalLib.dll</HintPath>
+      <HintPath>LethalLib.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Newtonsoft.Json.dll</HintPath>
+      <HintPath>Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Unity.InputSystem">
-      <HintPath>..\..\..\..\Downloads\Unity.InputSystem.dll</HintPath>
+      <HintPath>Unity.InputSystem.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Netcode.Runtime">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Unity.Netcode.Runtime.dll</HintPath>
+      <HintPath>Unity.Netcode.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\Unity.TextMeshPro.dll</HintPath>
+      <HintPath>Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.dll</HintPath>
+      <HintPath>UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.AIModule.dll</HintPath>
+      <HintPath>UnityEngine.AIModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>UnityEngine.AnimationModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>UnityEngine.AssetBundleModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.InputModule">
-      <HintPath>..\..\..\..\Downloads\UnityEngine.InputModule.dll</HintPath>
+      <HintPath>UnityEngine.InputModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\Documents\cours\Projet_Propre\Lethal_Battle\UnityEngine.UI.dll</HintPath>
+      <HintPath>UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
 

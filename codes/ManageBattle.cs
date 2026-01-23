@@ -6,12 +6,14 @@ using LethalLib.Modules;
 using GameNetcodeStuff;
 using BepInEx;
 using System.IO;
+using System;
+using System.Threading;
 
 namespace Lethal_Battle.NewFolder
 {
     internal class ManageBattle
     {
-        public static void ItemsSpawner()
+        public async static void ItemsSpawner()
         {
             UI.UISpawn();
             HUDManager.Instance.DisplayTip("Time to kill !!!", " And die for some loosers...", true);
@@ -72,24 +74,50 @@ namespace Lethal_Battle.NewFolder
             return artificialNodes;
         }
 
+        private static List<Vector3> GordionNodesList()
+        {
+            List<Vector3> artificialNodes = new List<Vector3>();
+
+            artificialNodes.Add(new Vector3(-19, -2, -23));
+            artificialNodes.Add(new Vector3(-21, -2, -13));
+            artificialNodes.Add(new Vector3(-5, -2, -0));
+            artificialNodes.Add(new Vector3(-13, -2, -17));
+            artificialNodes.Add(new Vector3(5, -2, 37));
+            artificialNodes.Add(new Vector3(-4, -2, -35));
+            artificialNodes.Add(new Vector3(5, -2, -57));
+            artificialNodes.Add(new Vector3(-20, -2, -65));
+            artificialNodes.Add(new Vector3(6, -18, -44));
+            artificialNodes.Add(new Vector3(19, -27, -18));
+            artificialNodes.Add(new Vector3(9, -19, -7));
+            artificialNodes.Add(new Vector3(19, -26, -35));
+            artificialNodes.Add(new Vector3(-26, -2, -31));
+
+            return artificialNodes;
+        }
+
         private static Vector3 PositionManager()
         {
             Vector3 spawnPosition;
 
-            if (TimeOfDay.Instance.currentLevel.PlanetName.ToUpper() != "98 GALETRY")
+            if(TimeOfDay.Instance.currentLevel.PlanetName.ToUpper() == "71 GORDION")
             {
-                spawnPosition = RoundManager.Instance.outsideAINodes[Random.Range(0, RoundManager.Instance.outsideAINodes.Length)].transform.position;
+                List<Vector3> artificialNodes = GordionNodesList();
+                spawnPosition = artificialNodes[UnityEngine.Random.Range(0, artificialNodes.Count)];
             }
-            else
+            else if (TimeOfDay.Instance.currentLevel.PlanetName.ToUpper() != "98 GALETRY")
+            {
+                spawnPosition = RoundManager.Instance.outsideAINodes[UnityEngine.Random.Range(0, RoundManager.Instance.outsideAINodes.Length)].transform.position;
+            }
+            else 
             {
                 List<Vector3> artificialNodes = GalatryNodesList();
-                spawnPosition = artificialNodes[Random.Range(0, artificialNodes.Count)];
+                spawnPosition = artificialNodes[UnityEngine.Random.Range(0, artificialNodes.Count)];
             }
             spawnPosition = RoundManager.Instance.GetRandomNavMeshPositionInRadius(spawnPosition, 20);
             return spawnPosition;
         }
 
-        public static void MakeShipLeave(StartMatchLever shipLever)
+        public async static void MakeShipLeave(StartMatchLever shipLever)
         {
             if (shipLever != null)
             {
@@ -97,7 +125,7 @@ namespace Lethal_Battle.NewFolder
                 shipLever.leverHasBeenPulled = false;
                 shipLever.triggerScript.interactable = false;
                 shipLever.leverAnimatorObject.SetBool("pullLever", false);
-                StartOfRound.Instance.ShipLeave();
+                StartOfRound.Instance.ShipLeaveAutomatically();
             }
         }
 

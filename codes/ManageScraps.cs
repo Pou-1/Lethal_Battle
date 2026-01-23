@@ -12,16 +12,36 @@ namespace Lethal_Battle.NewFolder
             List<Item> items = new List<Item>();
 
             foreach (var item in Items.shopItems)
-                items.Add(item.item);
+            {
+                if (item != null)
+                {
+                    items.Add(item.item);
+                }
+            }
 
             foreach (var item in Items.plainItems)
-                items.Add(item.item);
+            {
+                if (item != null)
+                {
+                    items.Add(item.item);
+                }
+            }
 
             foreach (var item in Items.scrapItems)
-                items.Add(item.item);
+            {
+                if (item != null)
+                {
+                    items.Add(item.item);
+                }
+            }
 
             foreach (var item in StartOfRound.Instance.allItemsList.itemsList)
-                items.Add(item);
+            {
+                if(item != null)
+                {
+                    items.Add(item);
+                }
+            }
 
             List<WeightedItem> itemsweighted = new List<WeightedItem>();
             itemsweighted = WeightedItem.GetBattleItemsWeighted(items);

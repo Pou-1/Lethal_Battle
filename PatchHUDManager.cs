@@ -10,7 +10,7 @@ namespace Lethal_Battle
     [HarmonyPatch(typeof(HUDManager))]
     internal class DebugCommandsManager
     {
-        [HarmonyPostfix]
+        /*[HarmonyPostfix]
         [HarmonyPatch("AddChatMessage")]
         public static void AddChatMessageDebugCommand(string chatMessage)
         {
@@ -40,6 +40,6 @@ namespace Lethal_Battle
             {
                 ManageChat.SendChatMessage("Must be in a company.");
             }
-        }
+        }*/
     }
 }

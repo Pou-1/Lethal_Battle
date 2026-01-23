@@ -18,9 +18,17 @@ namespace Lethal_Battle.NewFolder
             this.weight = weight;
         }
 
-        public static Dictionary<string, float> WeightsByName { get; private set; } = new Dictionary<string, float>();
+        public class ItemWeight
+        {
+            public string name { get; set; }
+            public float value { get; set; }
+        }
 
-        private static RootJson _cachedRoot;
+        public static List<ItemWeight> _reader { get; set; }
+        public static int battleWithOneItemProba { get; set; } = 0;
+        public static List<ItemWeight> battleWithOneItem { get; set; }
+
+        public static Dictionary<string, float> WeightsByName { get; private set; } = new Dictionary<string, float>();
 
         public static void LoadWeightsFromJson(string jsonPath)
         {
@@ -28,33 +36,28 @@ namespace Lethal_Battle.NewFolder
             {
                 if (!File.Exists(jsonPath))
                 {
-                    Plugin.log.LogError("Fichier JSON introuvable : " + jsonPath);
+                    Plugin.log.LogError("LETHAL BATTLE : JSON not found : " + jsonPath);
                     return;
                 }
 
                 string jsonContent = File.ReadAllText(jsonPath);
-                _cachedRoot = JsonConvert.DeserializeObject<RootJson>(jsonContent);
+                _reader = JsonConvert.DeserializeObject<List<ItemWeight>>(jsonContent);
 
-                if (_cachedRoot == null || _cachedRoot.items == null)
+                if (_reader == null)
                 {
-                    Plugin.log.LogError("Erreur : le fichier JSON est vide ou invalide !");
+                    Plugin.log.LogError("LETHAL BATTLE : JSON not valide");
                     return;
                 }
 
-                Plugin.log.LogInfo($"JSON chargé depuis {jsonPath} : {_cachedRoot.items.Count} items et {_cachedRoot.battleWithOneItem.Count} battle items, probabilité battle={_cachedRoot.battleWithOneItemProba}%");
-
-                WeightsByName = _cachedRoot.items.ToDictionary(
+                WeightsByName = _reader.ToDictionary(
                     x => x.name.Trim().ToUpper(),
                     x => x.value
                 );
 
-                Plugin.log.LogInfo("Aperçu des 5 premiers items :");
-                foreach (var item in _cachedRoot.items.Take(5))
-                    Plugin.log.LogInfo($" - {item.name} : {item.value}");
             }
             catch (Exception ex)
             {
-                Plugin.log.LogError("Erreur lors du chargement du JSON : " + ex.Message);
+                Plugin.log.LogError("LETHAL BATTLE : " + ex.Message);
             }
         }
 
@@ -66,26 +69,24 @@ namespace Lethal_Battle.NewFolder
 
         public static List<WeightedItem> GetBattleItemsWeighted(List<Item> allItems)
         {
-            string jsonPath = Path.Combine(Paths.PluginPath, "Lethal_Battle/items.json");
-            if (_cachedRoot == null)
-                LoadWeightsFromJson(jsonPath);
+            string jsonPath = Path.Combine(Paths.PluginPath, "MikuT4T-LethalBattle/items.json");
+            LoadWeightsFromJson(jsonPath);
 
-            if (_cachedRoot == null)
+            if (_reader == null)
             {
-                Plugin.log.LogError("Impossible de charger les données JSON !");
+                Plugin.log.LogError("LETHAL BATTLE : can't load JSON data !");
                 return new List<WeightedItem>();
             }
 
             Random rand = new Random();
             int roll = rand.Next(0, 100);
-            bool useBattle = roll < _cachedRoot.battleWithOneItemProba;
+            bool useBattle = roll <= battleWithOneItemProba;
 
             List<WeightedItem> result = new List<WeightedItem>();
 
             if (!useBattle)
             {
-                Plugin.log.LogInfo($"Roll {roll} → utilisation de la liste principale (items)");
-                WeightsByName = _cachedRoot.items.ToDictionary(
+                WeightsByName = _reader.ToDictionary(
                     x => x.name.Trim().ToUpper(),
                     x => x.value
                 );
@@ -98,12 +99,11 @@ namespace Lethal_Battle.NewFolder
             }
             else
             {
-                Plugin.log.LogInfo($"Roll {roll} → mode battleWithOneItem !");
-                var list = _cachedRoot.battleWithOneItem;
+                Plugin.log.LogError("LETHAL BATTLE : battle with one item !");
+                var list = battleWithOneItem;
 
                 if (list == null || list.Count == 0)
                 {
-                    Plugin.log.LogWarning("battleWithOneItem vide, fallback sur la liste principale !");
                     return GetBattleItemsWeighted(allItems);
                 }
 
@@ -126,29 +126,15 @@ namespace Lethal_Battle.NewFolder
                 if (chosen == null)
                     chosen = list.Last();
 
-                Plugin.log.LogInfo($"Item choisi pour la bataille : {chosen.name} (poids {chosen.value})");
+                Plugin.log.LogError($"LETHAL BATTLE : battle with {chosen.name} !");
 
                 Item selectedItem = allItems.FirstOrDefault(it => it.itemName.Trim().ToUpper() == chosen.name.Trim().ToUpper());
                 if (selectedItem != null)
                     result.Add(new WeightedItem(selectedItem, chosen.value));
                 else
-                    Plugin.log.LogWarning($"Item {chosen.name} non trouvé dans la liste allItems !");
+                    Plugin.log.LogError($"LETHAL BATTLE : can't find {chosen.name} !");
             }
-
             return result;
-        }
-
-        private class RootJson
-        {
-            public List<ItemWeight> items { get; set; }
-            public int battleWithOneItemProba { get; set; }
-            public List<ItemWeight> battleWithOneItem { get; set; }
-        }
-
-        private class ItemWeight
-        {
-            public string name { get; set; }
-            public float value { get; set; }
         }
     }
 }

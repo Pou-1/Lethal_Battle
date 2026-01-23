@@ -1,24 +1,66 @@
-﻿using GameNetcodeStuff;
-using HarmonyLib;
+﻿using HarmonyLib;
 using Lethal_Battle.NewFolder;
+using System;
+using System.Linq;
+using System.Threading;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
 namespace Lethal_Battle
 {
-    [HarmonyPatch(typeof(StartOfRound))]
-    internal class PatchStartOfRound
+    [HarmonyPatch(typeof(RoundManager))]
+
+    internal class PatchRoundManager
     {
-        [HarmonyPrefix]
-        [HarmonyPatch("EndOfGame")]
-        public static void ChangesDeleteUI()
+        [HarmonyPostfix]
+        [HarmonyPatch("FinishGeneratingNewLevelClientRpc")]
+        public static void Changes()
         {
-            if (Plugin.hasBattleStarted && Plugin.instance.UI_players_alive_and_kills != null)
+            if (!Plugin.hasBattleStarted && Plugin.instance.numberOfPlayers > 1 && TimeOfDay.Instance.daysUntilDeadline == 0 && TimeOfDay.Instance.currentLevel.planetHasTime == false && TimeOfDay.Instance.currentLevel.spawnEnemiesAndScrap == false)
             {
-                UI.UIDelete();
-                Plugin.hasMessageWonShowed = false;
-                Plugin.hasBattleStarted = false;
+                Plugin.log.LogError("In a company for the last phase!");
+                int potentialBodiesValue = 5 * (StartOfRound.Instance.allPlayerObjects.Length - 1);
+                int scrapsValue = UnityEngine.Object.FindObjectsOfType<GrabbableObject>().Where(o => o.itemProperties.isScrap && o.itemProperties.minValue > 0
+                    && (!(o is StunGrenadeItem g) || !g.hasExploded || !g.DestroyGrenade)
+                    && (o.isInShipRoom == true && o.isInElevator == true)).ToList().Sum(s => s.scrapValue);
+
+                if (scrapsValue + potentialBodiesValue + TimeOfDay.Instance.quotaFulfilled >= TimeOfDay.Instance.profitQuota)
+                {
+                    Plugin.log.LogError("No battle !");
+                }
+                else
+                {
+                    Plugin.log.LogError("Battle !");
+                    ManageBattle.ItemsSpawner();
+                    Plugin.hasBattleStarted = true;
+                }
+            }
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch("Update")]
+        public static void ChangesUI_death()
+        {
+            if (Plugin.hasBattleStarted)
+            {
+                StartMatchLever shipLever = UnityEngine.Object.FindObjectOfType<StartMatchLever>();
+                shipLever.triggerScript.interactable = false;
+                //ShipTeleporter shipTeleporter = UnityEngine.Object.FindObjectOfType<ShipTeleporter>();
+                //shipTeleporter.cooldownAmount = 9999999f;
+
+                if (Plugin.instance.UI_players_alive_and_kills != null && !Plugin.hasMessageWonShowed)
+                {
+                    UI.UpdateUI();
+                }
+
+                if (StartOfRound.Instance.livingPlayers == 1 && !Plugin.hasMessageWonShowed)
+                {
+                    string winnerUsername = ManageBattle.GetPlayers()[0].playerUsername;
+                    HUDManager.Instance.DisplayTip(winnerUsername + " won !!!", "some loosers are here ...", true);
+
+                    ManageBattle.MakeShipLeave(shipLever);
+                    
+                    Plugin.hasMessageWonShowed = true;
+                }
             }
         }
     }

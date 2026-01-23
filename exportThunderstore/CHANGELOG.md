@@ -1,3 +1,9 @@
+# 1.0.9 Fix
+
+-   **Added**
+-   Fix 1.0.8 My bad haha ... 
+    delete command to start battle (will fix it later)
+
 # 1.0.8 JSON and command
 
 -   **Added**

@@ -4,7 +4,7 @@
     {
         public static void SendChatMessage(string message)
         {
-            HUDManager.Instance.AddChatMessage(message);
+            //HUDManager.Instance.AddChatMessage(message);
         }
 
         public static void ConfirmRestart()
