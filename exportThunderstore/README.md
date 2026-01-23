@@ -6,7 +6,7 @@ Compatible with v70 of Lethal Company.
 
 ## To Start the End Battle
 
-You just need to go to the company on the last day without the qota ! (or if not in the last day but in the company just type "/battle" into the chat and "CONFIRM")
+You just need to go to the company on the last day without the qota and in multiplayer !
 
 -   You will see a new hud counter of deaths
     ![image](https://github.com/user-attachments/assets/78b775c4-5781-42e4-86e8-f4e70b4eaecc)
@@ -19,7 +19,7 @@ You just need to go to the company on the last day without the qota ! (or if not
 
 ## To End The Battle
 
-You just need to go to another moon and pull the lever when you arrived.
+You just need to kill all your friends ! UwU
 
 ## Dependencies
 
@@ -29,7 +29,7 @@ You just need to go to another moon and pull the lever when you arrived.
 
 ## Json file
 
--   You can change the items that spawn into the battle with the items.json, you just need to put the name of the item you want and the value (the more the value, the more chances the item has to spawn)
+-   You can change the items that spawn into the battle with the 2 json files, you just need to put the name of the item you want and the value (the more the value, the more chances the item has to spawn)
 
 ## Bugs
 

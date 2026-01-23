@@ -1,3 +1,9 @@
+# 1.1 Fix
+
+-   **Added**
+-   A battle with only one type of item that spawn (can be config in a new json)
+-   The battle will not start in singleplayer now
+
 # 1.0.9 Fix
 
 -   **Added**
