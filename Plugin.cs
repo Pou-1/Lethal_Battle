@@ -36,13 +36,37 @@ namespace Lethal_Battle
         public void Awake()
         {
             instance = this;
+            log = Logger;
 
-            string assetDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "lethal_battle");
-            AssetBundle bundle = AssetBundle.LoadFromFile(assetDir);
-            string path = "Assets/Lethal_Battle/UI/Lethal_Battle_Death_UI.prefab";
+            LoadUI();
+            LoadItem();
 
-            UI_Lethal_Battle = bundle.LoadAsset<GameObject>(path);
+            log.LogMessage("Lethal Battle Loaded !");
 
+            harmony.PatchAll();
+        }
+
+        public void LoadUI()
+        {
+            try
+            {
+                string assetDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "lethal_battle");
+                AssetBundle bundle = AssetBundle.LoadFromFile(assetDir);
+                string path = "Assets/Lethal_Battle/UI/Lethal_Battle_Death_UI.prefab";
+
+                UI_Lethal_Battle = bundle.LoadAsset<GameObject>(path);
+
+                log.LogInfo("LETHAL BATTLE : UI loaded successfully");
+            }
+            catch (Exception e)
+            {
+                log.LogError("LETHAL BATTLE : UI ERROR");
+                log.LogError(e);
+            }
+        }
+
+        public void LoadItem()
+        {
             try
             {
                 string assetDirPhone = Path.Combine(
@@ -53,30 +77,24 @@ namespace Lethal_Battle
                 AssetBundle bundlePhone = AssetBundle.LoadFromFile(assetDirPhone);
                 if (bundlePhone == null)
                 {
-                    Logger.LogError("Phone bundle not found");
+                    log.LogError("LETHAL BATTLE : Phone bundle not found");
                     return;
                 }
 
                 Item PhoneItem = bundlePhone.LoadAsset<Item>("Assets/LethalModding/PhoneItem.asset");
                 if (PhoneItem == null)
                 {
-                    Logger.LogError("PhoneItem is NULL");
+                    log.LogError("LETHAL BATTLE : PhoneItem is NULL");
                 }
                 else
                 {
-                    Logger.LogError("PhoneItem OK");
+                    log.LogError("LETHAL BATTLE : PhoneItem OK");
 
                     if (PhoneItem.spawnPrefab == null)
-                        Logger.LogError("spawnPrefab is NULL");
+                        log.LogError("LETHAL BATTLE : spawnPrefab is NULL");
                     else
-                        Logger.LogError("spawnPrefab OK");
+                        log.LogError("LETHAL BATTLE : spawnPrefab OK");
                 }
-
-                foreach (var name in bundlePhone.GetAllAssetNames())
-                {
-                    Logger.LogMessage("ASSET: " + name);
-                }
-
 
                 ConfigEntry<int> configPhoneSpawnWeight =
                     Config.Bind("Phone", "Spawn Weight", 15);
@@ -88,21 +106,13 @@ namespace Lethal_Battle
                 Utilities.FixMixerGroups(PhoneItem.spawnPrefab);
                 Items.RegisterScrap(PhoneItem, configPhoneSpawnWeight.Value, configPhoneMoonSpawns.Value);
 
-                Logger.LogInfo("Phone item loaded successfully");
+                log.LogInfo("LETHAL BATTLE : Phone item loaded successfully");
             }
             catch (Exception e)
             {
-                Logger.LogError("LETHAL BATTLE : PHONE ERROR");
-                Logger.LogError(e);
+                log.LogError("LETHAL BATTLE : PHONE ERROR");
+                log.LogError(e);
             }
-
-            // END Phone
-
-            log = Logger;
-
-            log.LogMessage("Lethal Battle Loaded !");
-
-            harmony.PatchAll();
         }
     }
 }
