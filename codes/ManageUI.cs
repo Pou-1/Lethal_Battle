@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using GameNetcodeStuff;
-
-namespace Lethal_Battle.NewFolder
+﻿namespace Lethal_Battle.NewFolder
 {
     internal class ManageUI
     {

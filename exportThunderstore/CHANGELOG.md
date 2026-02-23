@@ -1,3 +1,8 @@
+# 1.1.1 Fix
+
+-   **Added**
+-   A config for the spawn rate of the single item battle
+
 # 1.1 Fix
 
 -   **Added**

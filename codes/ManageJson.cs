@@ -25,12 +25,11 @@ namespace Lethal_Battle.NewFolder
         }
 
         public static List<ItemWeight> _reader { get; set; }
-        public static int battleWithOneItemProba { get; set; } = 30;
         public static List<ItemWeight> battleWithOneItem { get; set; }
 
         public static bool battleJsonLoaded = false;
 
-        public static Dictionary<string, float> WeightsByName { get; private set; } = new Dictionary<string, float>();
+        public static Dictionary<string, float> WeightsByName { get; set; } = new Dictionary<string, float>();
 
         public static void LoadWeightsFromJson(string jsonPath)
         {
@@ -38,7 +37,7 @@ namespace Lethal_Battle.NewFolder
             {
                 if (!File.Exists(jsonPath))
                 {
-                    Plugin.log.LogError("LETHAL BATTLE : JSON not found : " + jsonPath);
+                    Plugin.log.LogError("JSON not found : " + jsonPath);
                     return;
                 }
 
@@ -47,7 +46,7 @@ namespace Lethal_Battle.NewFolder
 
                 if (_reader == null || _reader.Count == 0)
                 {
-                    Plugin.log.LogError("LETHAL BATTLE : JSON not valid");
+                    Plugin.log.LogError("JSON not valid");
                     return;
                 }
 
@@ -58,7 +57,7 @@ namespace Lethal_Battle.NewFolder
             }
             catch (Exception ex)
             {
-                Plugin.log.LogError("LETHAL BATTLE : " + ex);
+                Plugin.log.LogError("" + ex);
             }
         }
 
@@ -68,7 +67,7 @@ namespace Lethal_Battle.NewFolder
             {
                 if (!File.Exists(jsonPath))
                 {
-                    Plugin.log.LogError("LETHAL BATTLE : Battle JSON not found : " + jsonPath);
+                    Plugin.log.LogError("Battle JSON not found : " + jsonPath);
                     return;
                 }
 
@@ -77,17 +76,17 @@ namespace Lethal_Battle.NewFolder
 
                 if (battleWithOneItem == null || battleWithOneItem.Count == 0)
                 {
-                    Plugin.log.LogError("LETHAL BATTLE : Battle JSON invalid or empty");
+                    Plugin.log.LogError("Battle JSON invalid or empty");
                     battleWithOneItem = new List<ItemWeight>();
                     return;
                 }
 
                 battleJsonLoaded = true;
-                Plugin.log.LogInfo($"LETHAL BATTLE : Loaded {battleWithOneItem.Count} battle items");
+                Plugin.log.LogInfo($"Loaded {battleWithOneItem.Count} battle items");
             }
             catch (Exception ex)
             {
-                Plugin.log.LogError("LETHAL BATTLE : " + ex);
+                Plugin.log.LogError("" + ex);
                 battleWithOneItem = new List<ItemWeight>();
             }
         }
@@ -110,7 +109,7 @@ namespace Lethal_Battle.NewFolder
 
             Random rand = new Random();
             int roll = rand.Next(0, 100);
-            bool useBattle = roll < battleWithOneItemProba;
+            bool useBattle = roll < Plugin.OneItemBattle;
 
             List<ManageJson> result = new List<ManageJson>();
 
@@ -128,14 +127,14 @@ namespace Lethal_Battle.NewFolder
             // Battle with one item
             if (battleWithOneItem == null || battleWithOneItem.Count == 0)
             {
-                Plugin.log.LogError("LETHAL BATTLE : No battle items loaded");
+                Plugin.log.LogError("No battle items loaded");
                 return result;
             }
 
             float totalWeight = battleWithOneItem.Sum(i => i.value);
             if (totalWeight <= 0f)
             {
-                Plugin.log.LogError("LETHAL BATTLE : Battle total weight is zero");
+                Plugin.log.LogError("Battle total weight is zero");
                 return result;
             }
 
@@ -161,11 +160,11 @@ namespace Lethal_Battle.NewFolder
 
             if (selectedItem == null)
             {
-                Plugin.log.LogError($"LETHAL BATTLE : Item not found in game : {chosen.name}");
+                Plugin.log.LogError($"Item not found in game : {chosen.name}");
                 return result;
             }
 
-            Plugin.log.LogInfo($"LETHAL BATTLE : battle with {chosen.name}");
+            Plugin.log.LogInfo($"battle with {chosen.name}");
             result.Add(new ManageJson(selectedItem, chosen.value));
 
             return result;

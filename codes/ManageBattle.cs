@@ -1,13 +1,7 @@
-﻿using UnityEngine;
+﻿using GameNetcodeStuff;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.Netcode;
-using LethalLib.Modules;
-using GameNetcodeStuff;
-using BepInEx;
-using System.IO;
-using System;
-using System.Threading;
+using UnityEngine;
 
 namespace Lethal_Battle.NewFolder
 {
@@ -21,7 +15,7 @@ namespace Lethal_Battle.NewFolder
             if (!GameNetworkManager.Instance.localPlayerController.IsHost)
                 return;
 
-            Plugin.log.LogInfo("LETHAL BATTLE : getting all items... c:");
+            Plugin.log.LogInfo("getting all items... c:");
 
             List<ManageJson> scraps = ManageScraps.GetFilteredWeightedItems();
 
@@ -41,10 +35,10 @@ namespace Lethal_Battle.NewFolder
                 }
             }
 
-            Plugin.log.LogInfo("LETHAL BATTLE : items spawned successfully !!! UwU");
+            Plugin.log.LogInfo("items spawned successfully !!! UwU");
         }
 
-        private static List<Vector3> GalatryNodesList()
+        public static List<Vector3> GalatryNodesList()
         {
             List<Vector3> artificialNodes = new List<Vector3>();
 
@@ -74,7 +68,7 @@ namespace Lethal_Battle.NewFolder
             return artificialNodes;
         }
 
-        private static List<Vector3> GordionNodesList()
+        public static List<Vector3> GordionNodesList()
         {
             List<Vector3> artificialNodes = new List<Vector3>();
 
@@ -95,7 +89,7 @@ namespace Lethal_Battle.NewFolder
             return artificialNodes;
         }
 
-        private static Vector3 PositionManager()
+        public static Vector3 PositionManager()
         {
             Vector3 spawnPosition;
 
@@ -121,7 +115,7 @@ namespace Lethal_Battle.NewFolder
         {
             if (shipLever != null)
             {
-                Plugin.log.LogInfo("LETHAL BATTLE : End of Battle, ship is living ! GG");
+                Plugin.log.LogInfo("End of Battle, ship is living ! GG");
                 shipLever.triggerScript.animationString = "SA_PushLeverBack";
                 shipLever.leverHasBeenPulled = false;
                 shipLever.triggerScript.interactable = false;

@@ -17,7 +17,7 @@ namespace Lethal_Battle
         {
             if (!Plugin.hasBattleStarted && StartOfRound.Instance.livingPlayers > 1 && TimeOfDay.Instance.daysUntilDeadline == 0 && TimeOfDay.Instance.currentLevel.planetHasTime == false && TimeOfDay.Instance.currentLevel.spawnEnemiesAndScrap == false)
             {
-                Plugin.log.LogInfo("LETHAL BATTLE : In a company for the last phase!");
+                Plugin.log.LogInfo("In a company for the last phase!");
                 int potentialBodiesValue = 5 * (StartOfRound.Instance.allPlayerObjects.Length - 1);
                 int scrapsValue = UnityEngine.Object.FindObjectsOfType<GrabbableObject>().Where(o => o.itemProperties.isScrap && o.itemProperties.minValue > 0
                     && (!(o is StunGrenadeItem g) || !g.hasExploded || !g.DestroyGrenade)
@@ -25,11 +25,11 @@ namespace Lethal_Battle
 
                 if (scrapsValue + potentialBodiesValue + TimeOfDay.Instance.quotaFulfilled >= TimeOfDay.Instance.profitQuota)
                 {
-                    Plugin.log.LogInfo("LETHAL BATTLE : No battle because you have the qota ! :3");
+                    Plugin.log.LogInfo("No battle because you have the qota ! :3");
                 }
                 else
                 {
-                    Plugin.log.LogInfo("LETHAL BATTLE : Battle because ur too poor, the company want blood !");
+                    Plugin.log.LogInfo("Battle because ur too poor, the company want blood !");
                     ManageBattle.ItemsSpawner();
                     Plugin.hasBattleStarted = true;
                 }
@@ -58,7 +58,7 @@ namespace Lethal_Battle
                     HUDManager.Instance.DisplayTip(winnerUsername + " won !!!", "some loosers are here ...", true);
 
                     ManageBattle.MakeShipLeave(shipLever);
-                    
+
                     Plugin.hasMessageWonShowed = true;
                 }
             }

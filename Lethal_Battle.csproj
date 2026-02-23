@@ -23,6 +23,9 @@
     <Reference Include="BepInEx">
       <HintPath>BepInEx.dll</HintPath>
     </Reference>
+    <Reference Include="Facepunch.Steamworks.Win64">
+      <HintPath>dependencies\Facepunch.Steamworks.Win64.dll</HintPath>
+    </Reference>
     <Reference Include="LethalLib">
       <HintPath>LethalLib.dll</HintPath>
     </Reference>
