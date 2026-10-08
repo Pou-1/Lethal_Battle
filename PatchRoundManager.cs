@@ -6,7 +6,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace Lethal_Battle.patchs
+namespace Lethal_Battle
 {
     [HarmonyPatch(typeof(RoundManager))]
 
@@ -40,11 +40,6 @@ namespace Lethal_Battle.patchs
                     RoundManager.Instance.StartCoroutine(ItemSpawn.SpawnItems());
                     Plugin.hasBattleStarted = true;
                 }
-            }
-            else
-            {
-                Plugin.log?.LogError("FUCK U");
-
             }
         }
 

@@ -2,7 +2,7 @@
 using Lethal_Battle.codes;
 using Lethal_Battle.NewFolder;
 
-namespace Lethal_Battle.patchs
+namespace Lethal_Battle
 {
     [HarmonyPatch(typeof(StartOfRound))]
     internal class PatchStartOfRound

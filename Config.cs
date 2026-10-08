@@ -21,14 +21,14 @@ namespace Lethal_Battle
                 "Spawn Rates",
                 "SingleItemBattleRarity",
                 10,
-                "% of chances to have a battle with a single item (higher = more common)."
+                "percentage of chances to have a battle with a single item (higher = more common)."
             );
 
             IsVolumeInBattle = configFile.Bind(
-                "true = the battle has a volume making a reddish tone to the screen",
+                "Is the battle volume is in the battle.",
                 "IsVolumeInBattle",
                 true,
-                "Whether the battle volume is in the battle."
+                "true equal the battle has a volume making a reddish tone to the screen"
             );
 
             configFile.Save();

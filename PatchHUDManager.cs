@@ -5,7 +5,7 @@ using Lethal_Battle.NewFolder;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-namespace Lethal_Battle.patchs
+namespace Lethal_Battle
 {
     [HarmonyPatch(typeof(HUDManager))]
     internal class DebugCommandsManager
