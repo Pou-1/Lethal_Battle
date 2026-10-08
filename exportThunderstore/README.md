@@ -6,22 +6,24 @@ Compatible with v70 of Lethal Company.
 
 ## To Start the End Battle
 
-You just need to go to the company on the last day without the qota and in multiplayer !
+You just need to go to the company on the last day without the qota and kill all ur ~~friends~~ opponents !
 
--   You will see a new hud counter of deaths
-    ![image](https://github.com/user-attachments/assets/78b775c4-5781-42e4-86e8-f4e70b4eaecc)
+### You will see a new hud counter of deaths
 
--   Items will spawn
--   When every player except one is alive it will say "winner" and the ship will leave
+<img width="2190" height="1234" alt="Screenshot 2026-10-08 172013" src="https://github.com/user-attachments/assets/4af9f627-c02d-44c8-a45d-571bc0714a69" />
 
--   Wen the last player is killed a message is shown
-    ![20250613205743_1](https://github.com/user-attachments/assets/01cb0969-9c99-4491-8d93-2425e3531148)
+### Items will spawn and the battle can start !
 
-## To End The Battle
+<img width="2560" height="1440" alt="1966720_357" src="https://github.com/user-attachments/assets/675f139e-d205-4917-aac5-e89c6373d9ac" />
 
-You just need to kill all your friends ! UwU
+### when every player except one is alive it will say "winner" and the ship will leave
 
-## Dependencies
+<div>
+    <img width="45%" style="margin-left:10px; alt="2026101" src="https://github.com/user-attachments/assets/3efe2579-7c7f-46d9-be9a-ebc600131c25" />
+    <img width="45%" style="margin-left:10px; alt="1966720_358" src="https://github.com/user-attachments/assets/9b885827-ca8c-44ad-8a8a-b5d3466da782" />
+</div>
+
+## Dependencies (IMPORTANT)
 
 -   [NavMeshInCompany](https://thunderstore.io/c/lethal-company/p/Kittenji/NavMeshInCompany/)
 -   [BepInExPack](https://thunderstore.io/c/lethal-company/p/BepInEx/BepInExPack/)
@@ -31,9 +33,9 @@ You just need to kill all your friends ! UwU
 
 -   You can change the items that spawn into the battle with the 2 json files, you just need to put the name of the item you want and the value (the more the value, the more chances the item has to spawn)
 
-## Bugs
+## Bugs (bzz bzzz, cronch cronch i'm eating cables)
 
--   Some items spawn into the map sometimes but you can still play the fight don't worry
+-   Some items spawn into the map thanks to NavMesInCompany <3
 
 ### Feedback
 
