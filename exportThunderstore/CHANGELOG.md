@@ -1,3 +1,15 @@
+# 1.2.0 Fix
+
+-   **Added**
+-   Add distance hud to closest player
+-   Add a path hud to closest player
+-   Add a circle around item to make them more visible
+-   Add a reddish vision when on battle
+-   Add a little timer before battle start (to make everyone ready)
+
+-   **Fix**
+-   Bug making battle not launch if the single item selected in json was not an item.
+
 # 1.1.1 Fix
 
 -   **Added**

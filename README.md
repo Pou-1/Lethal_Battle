@@ -27,6 +27,10 @@ You just need to go to another moon and pull the lever when you arrived.
 -   [BepInExPack](https://thunderstore.io/c/lethal-company/p/BepInEx/BepInExPack/)
 -   [LethalLib](https://thunderstore.io/c/lethal-company/p/Evaisa/LethalLib/)
 
+## Json file
+
+-   You can change the items that spawn into the battle with the 2 json files, you just need to put the name of the item you want and the value (the more the value, the more chances the item has to spawn)
+
 ## Bugs 🤫
 
 -   Some items spawn into the map thanks to NavMesInCompany ☠️

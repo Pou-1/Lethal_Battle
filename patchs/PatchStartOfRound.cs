@@ -1,11 +1,8 @@
-﻿using GameNetcodeStuff;
-using HarmonyLib;
+﻿using HarmonyLib;
+using Lethal_Battle.codes;
 using Lethal_Battle.NewFolder;
-using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 
-namespace Lethal_Battle
+namespace Lethal_Battle.patchs
 {
     [HarmonyPatch(typeof(StartOfRound))]
     internal class PatchStartOfRound
@@ -14,8 +11,10 @@ namespace Lethal_Battle
         [HarmonyPatch("EndOfGame")]
         public static void ChangesDeleteUI()
         {
-            if (Plugin.hasBattleStarted && Plugin.instance.UI_players_alive_and_kills != null)
+            if (Plugin.hasBattleStarted && ManageUI.UI_players_alive_and_kills != null && Plugin.hasMessageWonShowed)
             {
+                ItemSpawn.DisableBattleVolume();
+                ClosestPlayerAndPath.StopClosestOpponentPath();
                 ManageUI.UIDelete();
                 Plugin.hasMessageWonShowed = false;
                 Plugin.hasBattleStarted = false;

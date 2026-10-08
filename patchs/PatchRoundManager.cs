@@ -1,38 +1,50 @@
-﻿using HarmonyLib;
+﻿using GameNetcodeStuff;
+using HarmonyLib;
+using Lethal_Battle.codes;
 using Lethal_Battle.NewFolder;
-using System;
 using System.Linq;
-using System.Threading;
 using UnityEngine;
+using UnityEngine.Rendering;
 
-namespace Lethal_Battle
+namespace Lethal_Battle.patchs
 {
     [HarmonyPatch(typeof(RoundManager))]
 
     internal class PatchRoundManager
     {
+        private static bool winSequenceStarted = false;
+
         [HarmonyPostfix]
         [HarmonyPatch("FinishGeneratingNewLevelClientRpc")]
         public static void Changes()
         {
-            if (!Plugin.hasBattleStarted && StartOfRound.Instance.livingPlayers > 1 && TimeOfDay.Instance.daysUntilDeadline == 0 && TimeOfDay.Instance.currentLevel.planetHasTime == false && TimeOfDay.Instance.currentLevel.spawnEnemiesAndScrap == false)
+            if (!Plugin.hasBattleStarted && StartOfRound.Instance.livingPlayers >= 2 && TimeOfDay.Instance.daysUntilDeadline == 0 && TimeOfDay.Instance.currentLevel.planetHasTime == false && TimeOfDay.Instance.currentLevel.spawnEnemiesAndScrap == false)
             {
-                Plugin.log.LogInfo("In a company for the last phase!");
+                Plugin.log?.LogInfo("In a company for the last phase!");
+
                 int potentialBodiesValue = 5 * (StartOfRound.Instance.allPlayerObjects.Length - 1);
+
                 int scrapsValue = UnityEngine.Object.FindObjectsOfType<GrabbableObject>().Where(o => o.itemProperties.isScrap && o.itemProperties.minValue > 0
                     && (!(o is StunGrenadeItem g) || !g.hasExploded || !g.DestroyGrenade)
                     && (o.isInShipRoom == true && o.isInElevator == true)).ToList().Sum(s => s.scrapValue);
 
+                winSequenceStarted = false;
+
                 if (scrapsValue + potentialBodiesValue + TimeOfDay.Instance.quotaFulfilled >= TimeOfDay.Instance.profitQuota)
                 {
-                    Plugin.log.LogInfo("No battle because you have the qota ! :3");
+                    Plugin.log?.LogInfo(scrapsValue + potentialBodiesValue + TimeOfDay.Instance.quotaFulfilled >= TimeOfDay.Instance.profitQuota);
                 }
                 else
                 {
-                    Plugin.log.LogInfo("Battle because ur too poor, the company want blood !");
-                    ManageBattle.ItemsSpawner();
+                    Plugin.log?.LogInfo("Battle because ur too poor, the company want blood !");
+                    RoundManager.Instance.StartCoroutine(ItemSpawn.SpawnItems());
                     Plugin.hasBattleStarted = true;
                 }
+            }
+            else
+            {
+                Plugin.log?.LogError("FUCK U");
+
             }
         }
 
@@ -43,23 +55,19 @@ namespace Lethal_Battle
             if (Plugin.hasBattleStarted)
             {
                 StartMatchLever shipLever = UnityEngine.Object.FindObjectOfType<StartMatchLever>();
-                shipLever.triggerScript.interactable = false;
-                //ShipTeleporter shipTeleporter = UnityEngine.Object.FindObjectOfType<ShipTeleporter>();
-                //shipTeleporter.cooldownAmount = 9999999f;
 
-                if (Plugin.instance.UI_players_alive_and_kills != null && !Plugin.hasMessageWonShowed)
+                shipLever.triggerScript.interactable = false;
+
+                if (ManageUI.UI_players_alive_and_kills != null && !Plugin.hasMessageWonShowed)
                 {
                     ManageUI.UpdateUI();
                 }
 
-                if (StartOfRound.Instance.livingPlayers == 1 && !Plugin.hasMessageWonShowed)
+                if (StartOfRound.Instance.livingPlayers == 1 && !winSequenceStarted)
                 {
-                    string winnerUsername = ManageBattle.GetPlayers()[0].playerUsername;
-                    HUDManager.Instance.DisplayTip(winnerUsername + " won !!!", "some loosers are here ...", true);
+                    winSequenceStarted = true;
 
-                    ManageBattle.MakeShipLeave(shipLever);
-
-                    Plugin.hasMessageWonShowed = true;
+                    RoundManager.Instance.StartCoroutine(ManageUI.WinScreenCoroutine(shipLever));
                 }
             }
         }

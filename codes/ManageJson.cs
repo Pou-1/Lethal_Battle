@@ -20,12 +20,12 @@ namespace Lethal_Battle.NewFolder
 
         public class ItemWeight
         {
-            public string name { get; set; }
+            public string? name { get; set; }
             public float value { get; set; }
         }
 
-        public static List<ItemWeight> _reader { get; set; }
-        public static List<ItemWeight> battleWithOneItem { get; set; }
+        public static List<ItemWeight>? _reader { get; set; }
+        public static List<ItemWeight>? battleWithOneItem { get; set; }
 
         public static bool battleJsonLoaded = false;
 
@@ -37,7 +37,7 @@ namespace Lethal_Battle.NewFolder
             {
                 if (!File.Exists(jsonPath))
                 {
-                    Plugin.log.LogError("JSON not found : " + jsonPath);
+                    Plugin.log?.LogError("JSON not found : " + jsonPath);
                     return;
                 }
 
@@ -46,7 +46,7 @@ namespace Lethal_Battle.NewFolder
 
                 if (_reader == null || _reader.Count == 0)
                 {
-                    Plugin.log.LogError("JSON not valid");
+                    Plugin.log?.LogError("JSON not valid");
                     return;
                 }
 
@@ -57,7 +57,7 @@ namespace Lethal_Battle.NewFolder
             }
             catch (Exception ex)
             {
-                Plugin.log.LogError("" + ex);
+                Plugin.log?.LogError("" + ex);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Lethal_Battle.NewFolder
             {
                 if (!File.Exists(jsonPath))
                 {
-                    Plugin.log.LogError("Battle JSON not found : " + jsonPath);
+                    Plugin.log?.LogError("Battle JSON not found : " + jsonPath);
                     return;
                 }
 
@@ -76,17 +76,17 @@ namespace Lethal_Battle.NewFolder
 
                 if (battleWithOneItem == null || battleWithOneItem.Count == 0)
                 {
-                    Plugin.log.LogError("Battle JSON invalid or empty");
+                    Plugin.log?.LogError("Battle JSON invalid or empty");
                     battleWithOneItem = new List<ItemWeight>();
                     return;
                 }
 
                 battleJsonLoaded = true;
-                Plugin.log.LogInfo($"Loaded {battleWithOneItem.Count} battle items");
+                Plugin.log?.LogInfo($"Loaded {battleWithOneItem.Count} battle items");
             }
             catch (Exception ex)
             {
-                Plugin.log.LogError("" + ex);
+                Plugin.log?.LogError("" + ex);
                 battleWithOneItem = new List<ItemWeight>();
             }
         }
@@ -109,7 +109,7 @@ namespace Lethal_Battle.NewFolder
 
             Random rand = new Random();
             int roll = rand.Next(0, 100);
-            bool useBattle = roll < Plugin.OneItemBattle;
+            bool useBattle = roll < Plugin.LethalBattleConfig.SingItemBattleRarity.Value;
 
             List<ManageJson> result = new List<ManageJson>();
 
@@ -127,24 +127,34 @@ namespace Lethal_Battle.NewFolder
             // Battle with one item
             if (battleWithOneItem == null || battleWithOneItem.Count == 0)
             {
-                Plugin.log.LogError("No battle items loaded");
+                Plugin.log?.LogError("No battle items loaded");
                 return result;
             }
 
-            float totalWeight = battleWithOneItem.Sum(i => i.value);
+            List<ItemWeight> validBattleItems = battleWithOneItem.Where(jsonItem => !string.IsNullOrWhiteSpace(jsonItem.name) && allItems.Any(gameItem => gameItem.itemName.Trim().ToUpper() == jsonItem.name.Trim().ToUpper())).ToList();
+
+            if (validBattleItems.Count == 0)
+            {
+                Plugin.log?.LogError("No valid battle items found in game");
+                return result;
+            }
+
+            float totalWeight = validBattleItems.Sum(i => i.value);
+
             if (totalWeight <= 0f)
             {
-                Plugin.log.LogError("Battle total weight is zero");
+                Plugin.log?.LogError("Battle total weight is zero");
                 return result;
             }
 
             float pick = (float)(rand.NextDouble() * totalWeight);
             float cumulative = 0f;
-            ItemWeight chosen = null;
+            ItemWeight chosen = new ItemWeight();
 
-            foreach (var i in battleWithOneItem)
+            foreach (var i in validBattleItems)
             {
                 cumulative += i.value;
+
                 if (pick <= cumulative)
                 {
                     chosen = i;
@@ -152,23 +162,24 @@ namespace Lethal_Battle.NewFolder
                 }
             }
 
-            chosen ??= battleWithOneItem.Last();
+            chosen ??= validBattleItems.Last();
 
             Item selectedItem = allItems.FirstOrDefault(
-                it => it.itemName.Trim().ToUpper() == chosen.name.Trim().ToUpper()
+                it => it.itemName.Trim().ToUpper() == chosen.name?.Trim().ToUpper()
             );
 
             if (selectedItem == null)
             {
-                Plugin.log.LogError($"Item not found in game : {chosen.name}");
+                Plugin.log?.LogError($"Item not found in game : {chosen.name}");
                 return result;
             }
 
-            Plugin.log.LogInfo($"battle with {chosen.name}");
+            HUDManager.Instance.BeginDisplayAd(selectedItem.itemName," Only battle !");
+
+            Plugin.log?.LogInfo($"battle with {chosen.name}");
             result.Add(new ManageJson(selectedItem, chosen.value));
 
             return result;
         }
-
     }
 }

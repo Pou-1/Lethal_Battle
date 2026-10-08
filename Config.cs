@@ -9,6 +9,11 @@ namespace Lethal_Battle
             get; private set;
         }
 
+        public ConfigEntry<bool> IsVolumeInBattle
+        {
+            get; private set;
+        }
+
         public Config(ConfigFile configFile)
         {
             configFile.SaveOnConfigSet = false;
@@ -16,7 +21,14 @@ namespace Lethal_Battle
                 "Spawn Rates",
                 "SingleItemBattleRarity",
                 10,
-                "Rarity of the Single Item Battle (higher = more common)."
+                "% of chances to have a battle with a single item (higher = more common)."
+            );
+
+            IsVolumeInBattle = configFile.Bind(
+                "true = the battle has a volume making a reddish tone to the screen",
+                "IsVolumeInBattle",
+                true,
+                "Whether the battle volume is in the battle."
             );
 
             configFile.Save();
